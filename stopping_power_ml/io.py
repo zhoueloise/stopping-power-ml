@@ -199,23 +199,25 @@ def load_directory(d, prefix="", suffix=".out"):
         (DataFrame): The data in all files"""
 
     # Read in the data files
-    data = []
+    data = [] #initializes data as empty list
     for file in glob('%s/%s*%s' % (d, prefix, suffix)):
         try:
-            frame = load_qbox_data(file)
+            frame = load_qbox_data(file) #frame is a Pandas DataFrame type
         except:
             print('File failed to read: %s' % file, file=sys.stderr)
             raise
         frame['file'] = file
         data.append(frame)
-    data = pd.concat(data)
+    #data is list of Pandas DataFrames for all related files
+    data = pd.concat(data) #data is now a single DataFrame of all data in related files
 
     # Sort, assign timestep values
     data.sort_values(['file_id', 'frame_id'], ascending=True, inplace=True)
     data['timestep'] = list(range(len(data)))
 
     # Compute displacement
-    data['displacement'] = (data['position'] - data['position'].iloc[0]).apply(np.linalg.norm)
+    positions = np.stack(data['position'].to_numpy(), axis = 0)
+    data['displacement'] = np.linalg.norm(positions - positions[0], axis = -1)
 
     # Add tag for the directory
     data['directory'] = d

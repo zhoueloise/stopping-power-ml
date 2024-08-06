@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH -N 1 -n 1 -c 1 # --hint=nomultithread #--exclude ccc0279                # the number of cores
+#SBATCH -p secondary-eth #GSEG_CC
+### #SBATCH -p eng-research-gpu --gres=gpu:A10:1 
+#SBATCH --mem=30GB
+#SBATCH -t 4:00:00    # sets maximum total CPU time
+#SBATCH --job-name jupyter   # sets job name
+#SBATCH -o %x.out%j
+#SBATCH --mail-type=ALL ## (NONE , BEGIN , END , FAIL , ALL) 16
+#SBATCH --mail-user="elzhou2@illinois.edu" ## email address to notify
+
+source /scratch/users/elzhou2/stopping-power-ml/test_env/bin/activate
+time jupyter nbconvert --execute --inplace --ExecutePreprocessor.timeout=-1 multiple-velocities/3_compare-to-single-velocity.ipynb

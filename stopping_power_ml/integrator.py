@@ -44,8 +44,8 @@ class TrajectoryIntegrator:
         :return: ndarray, 3x1 array defining the shortest path the covers an entire path"""
 
         # Map the conventional cell lattice vector to the primitive cell
-        prim_vector = np.dot(self.conv_to_prim, np.array(lattice_vector, dtype=np.int))
-        prim_vector = np.array(np.round(prim_vector), dtype=np.int)
+        prim_vector = np.dot(self.conv_to_prim, np.array(lattice_vector, dtype=int))
+        prim_vector = np.array(np.round(prim_vector), dtype=int)
 
         # Determine the shortest-possible vector
         g = gcd(prim_vector[0], gcd(prim_vector[1], prim_vector[2]))
@@ -73,7 +73,7 @@ class TrajectoryIntegrator:
         start_point = np.dot(self.conv_strc.lattice.matrix, start_point)
 
         # Compute the velocity vector
-        velocity_vec = velocity * np.array(traj_vec, np.float) / np.linalg.norm(traj_vec)
+        velocity_vec = velocity * np.array(traj_vec, float) / np.linalg.norm(traj_vec)
 
         # Create the function
         def output(x):

@@ -1,0 +1,15 @@
+
+pymatgen
+pandas
+scikit-learn
+tensorflow
+keras
+spglib
+ase
+mdf_forge
+matminer
+parsl
+cvxopt
+jupyterlab
+h5py
+tqdm

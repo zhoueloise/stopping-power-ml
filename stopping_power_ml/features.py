@@ -50,6 +50,12 @@ class ProjectileFeaturizer(BaseFeaturizer):
 
         raise NotImplementedError()
 
+    def implementors(self):
+        return ['Logan Ward']
+
+    def citations(self):
+        return []
+
 
 class IonIonForce(ProjectileFeaturizer):
     """Compute the stopping force acting on a particle from ion-ion repulsion
@@ -257,6 +263,12 @@ class TimeOffset(ProjectileFeaturizer):
     def feature_labels(self):
         return ['{} at t={:.2f}'.format(f, t) for t, f in itertools.product(self.offsets,
                                                                            self.featurizer.feature_labels())]
+
+    def implementors(self):
+        return ['Logan Ward']
+
+    def citations(self):
+        return []
 
 class TimeAverage(ProjectileFeaturizer):
     """Compute a weighted average of a feature over time
